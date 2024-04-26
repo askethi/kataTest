@@ -101,7 +101,7 @@ public class Main {
         return (Arrays.asList(romans).contains(input));
     }
 
-    static Integer romToInt(String input) {
+    static Integer romToInt(String input) throws Exception {
         //too much hardcoded(?) See romToInt2
         Integer out;
         out = 0;
@@ -109,8 +109,7 @@ public class Main {
             case "I" -> out = 1;
             case "II" -> out = 2;
             case "III" -> out = 3;
-            case "IIII" -> out = 4;
-            case "IV" -> out = 4;
+            case "IIII", "IV" -> out = 4;
             case "V" -> out = 5;
             case "VI" -> out = 6;
             case "VII" -> out = 7;
