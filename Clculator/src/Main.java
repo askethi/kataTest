@@ -72,28 +72,18 @@ public class Main {
 
     static Integer performCalc(String operator, Integer n1, Integer n2) throws Exception {
         Integer result;
-        switch (operator) {
-            case "\\*":
-                return n1 * n2;
-            case "/":
-                return n1 / n2;
-            case "\\+":
-                return n1 + n2;
-            case "-":
-                return n1 - n2;
-            default:
-                throw new Exception("something went wrong..");
-
-        }
+        return switch (operator) {
+            case "\\*" -> n1 * n2;
+            case "/" -> n1 / n2;
+            case "\\+" -> n1 + n2;
+            case "-" -> n1 - n2;
+            default -> throw new Exception("something went wrong..");
+        };
     }
 
     static Boolean isArabian(String input) {
         String[] nums = new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-        if (Arrays.asList(nums).contains(input)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (Arrays.asList(nums).contains(input));
     }
 
     static Boolean isRoman(String input) {
