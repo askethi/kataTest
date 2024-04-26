@@ -1,18 +1,27 @@
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     static String[] operators = new String[]{"\\*", "/", "\\+", "-"};
+    static Scanner scanner = new Scanner(System.in);
+    static String input;
 
     public static void main(String[] args) {
-        try {
-            System.out.println(calc("V / III"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("Welcome! Type quit to quit.");
+        do {
+            System.out.println("Your expression here:");
+            input = scanner.nextLine();
+            try {
+                System.out.println(calc(input));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!input.equals("quit"));
+
     }
 
 
@@ -42,7 +51,7 @@ public class Main {
             throw new Exception("operator missing");
         }
         if (!isArabian(num1) && !isRoman(num1)) {
-            throw new Exception("num1 is not a valid number");
+            throw new Exception("num1 [at least] is not a valid number");
         }
         if (!isArabian(num2) && !isRoman(num2)) {
            throw new Exception("num2 is not a valid number");
