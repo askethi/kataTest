@@ -1,5 +1,9 @@
 
+import javafx.util.Pair;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -29,7 +33,7 @@ public class Main {
 
 
 
-   static Integer calc(String input) throws Exception {
+   static String calc(String input) throws Exception {
         String[] parsed = new String[]{};
         String operator = null;
         String num1 = null;
@@ -43,7 +47,7 @@ public class Main {
                break;
            }
         }
-        if (parsed.length > 3) {
+        if (parsed.length > 2) {
             throw new Exception ("only 1 operator allowed");
         }
         if (operator == null) {
@@ -62,11 +66,10 @@ public class Main {
             throw new Exception("roman numbers cannot be negative");
         }
         if (isRoman(num1)) {
-            return performCalc(operator, romToInt(num1), romToInt(num2));
+            return intToRom(performCalc(operator, romToInt(num1), romToInt(num2)));
         }
         else {
-            //TODO: toRom
-            return performCalc(operator, arbToInt(num1), arbToInt(num2));
+            return performCalc(operator, arbToInt(num1), arbToInt(num2)).toString();
         }
     }
 
@@ -90,7 +93,7 @@ public class Main {
         return (Arrays.asList(romans).contains(input));
     }
 
-    static Integer romToInt(String input) throws Exception {
+    static Integer romToInt(String input) {
         //too much hardcoded(?) See romToInt2
         return switch (input) {
                 case "I" -> 1;
@@ -106,6 +109,30 @@ public class Main {
                 default -> 0;
         };
     }
+
+    static String intToRom(Integer input) {
+        Integer num = input;
+        int[] values = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        String[] romanLetters = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        List<Pair<Integer, String>> pairs = Arrays.asList(
+                new Pair (100, "C"),
+                new Pair (90, "XC"),
+                new Pair (50, "L"),
+                new Pair (40, "XL"),
+                new Pair (10, "X"),
+                new Pair (9, "IX"),
+                new Pair (5, "V"),
+                new Pair (4, "IV"),
+                new Pair (1, "I"));
+                                                                                ;
+        String result = "";
+        for (Pair<Integer, String> pair : pairs) {
+            while (num >= pair.getKey()) {
+                num = num - pair.getKey();
+                result += pair.getValue();
+            }
+        }
+        return result;}
 
     static Integer romToInt2(String input) {
         Integer result = 0;
