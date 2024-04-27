@@ -11,32 +11,31 @@ public class Main {
     static String input;
 
     public static void main(String[] args) {
-        System.out.println("Welcome! Type quit to quit.");
+        System.out.println("Welcome! Type 'quit' to quit.");
         do {
             System.out.println("Your expression here:");
             input = scanner.nextLine();
-            try {
-                System.out.println(calc(input));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            if (!input.equals("quit")) {
+                try {
+                    System.out.println(calc(input));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                System.out.println("program terminated");
             }
-        } while (!input.equals("quit"));
-
+        } while (!input.equals("quit")) ;
     }
 
 
 
    static Integer calc(String input) throws Exception {
         String[] parsed = new String[]{};
-        //String[] result = new String[3];
         String operator = null;
         String num1 = null;
         String num2 = null;
         for (String op : operators) {
             parsed = input.split(op);
-            /* for (String s : parsed) {
-               System.out.println(s);}
-            */
            if (!parsed[0].equals(input)) {
                num1 = parsed[0].trim();
                num2 = parsed[1].trim();
@@ -66,12 +65,12 @@ public class Main {
             return performCalc(operator, romToInt(num1), romToInt(num2));
         }
         else {
+            //TODO: toRom
             return performCalc(operator, arbToInt(num1), arbToInt(num2));
         }
     }
 
     static Integer performCalc(String operator, Integer n1, Integer n2) throws Exception {
-        Integer result;
         return switch (operator) {
             case "\\*" -> n1 * n2;
             case "/" -> n1 / n2;
@@ -93,21 +92,20 @@ public class Main {
 
     static Integer romToInt(String input) throws Exception {
         //too much hardcoded(?) See romToInt2
-        Integer out;
-        out = 0;
-        switch (input) {
-            case "I" -> out = 1;
-            case "II" -> out = 2;
-            case "III" -> out = 3;
-            case "IIII", "IV" -> out = 4;
-            case "V" -> out = 5;
-            case "VI" -> out = 6;
-            case "VII" -> out = 7;
-            case "VIII" -> out = 8;
-            case "IX" -> out = 9;
-            case "X" -> out = 10;
-        }
-        return out;}
+        return switch (input) {
+                case "I" -> 1;
+                case "II" -> 2;
+                case "III" -> 3;
+                case "IIII", "IV" -> 4;
+                case "V" -> 5;
+                case "VI" -> 6;
+                case "VII" -> 7;
+                case "VIII" -> 8;
+                case "IX" -> 9;
+                case "X" -> 10;
+                default -> 0;
+        };
+    }
 
     static Integer romToInt2(String input) {
         Integer result = 0;
