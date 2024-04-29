@@ -1,9 +1,4 @@
-
-import javafx.util.Pair;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -112,22 +107,13 @@ public class Main {
 
     static String intToRom(Integer input) {
         Integer num = input;
-        List<Pair<Integer, String>> pairs = Arrays.asList(
-                new Pair (100, "C"),
-                new Pair (90, "XC"),
-                new Pair (50, "L"),
-                new Pair (40, "XL"),
-                new Pair (10, "X"),
-                new Pair (9, "IX"),
-                new Pair (5, "V"),
-                new Pair (4, "IV"),
-                new Pair (1, "I"));
-                                                                                ;
+        Integer[] values = {100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] roms = {"C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
         String result = "";
-        for (Pair<Integer, String> pair : pairs) {
-            while (num >= pair.getKey()) {
-                num = num - pair.getKey();
-                result += pair.getValue();
+        for (int i = 0; i < values.length; i++) {
+            while (num >= values[i]) {
+                num -= values[i];
+                result += roms[i];
             }
         }
         return result;}
